@@ -1,0 +1,12 @@
+[submodule "python/pybotvac"]
+	path = python/pybotvac
+	url = https://github.com/rogora/pybotvac/
+[submodule "python/urllib3"]
+	path = python/urllib3
+	url = https://github.com/urllib3/urllib3
+[submodule "python/dateutil"]
+	path = python/dateutil
+	url = https://github.com/dateutil/dateutil
+[submodule "python/requests"]
+	path = python/requests
+	url = https://github.com/kennethreitz/requests
