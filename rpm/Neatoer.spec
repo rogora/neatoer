@@ -10,7 +10,7 @@ Name:       harbour-neatoer
 
 Summary:    Neato Vacuum Cleaner Controller
 Version:    0.2
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    LICENSE
 BuildArch:  noarch
@@ -31,7 +31,6 @@ BuildRequires:  desktop-file-utils
 Neato Vacuum Cleaner Controller
 
 %post
-python3 -m pip install requests
 
 %prep
 %setup -q -n %{name}-%{version}

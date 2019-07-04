@@ -174,6 +174,7 @@ Page {
                     py.addImportPath(Qt.resolvedUrl('../../python/dateutil/'));
                     py.addImportPath(Qt.resolvedUrl('../../python/requests/'));
                     py.addImportPath(Qt.resolvedUrl('../../python/urllib3/src/'));
+                    py.addImportPath(Qt.resolvedUrl('../../python/chardet/'));
 
                     py.importModule('main',function(){
                         py.call("main.init",[])
