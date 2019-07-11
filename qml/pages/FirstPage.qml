@@ -175,6 +175,9 @@ Page {
                     py.addImportPath(Qt.resolvedUrl('../../python/requests/'));
                     py.addImportPath(Qt.resolvedUrl('../../python/urllib3/src/'));
                     py.addImportPath(Qt.resolvedUrl('../../python/chardet/'));
+                    py.addImportPath(Qt.resolvedUrl('../../python/certifi/'));
+                    py.addImportPath(Qt.resolvedUrl('../../python/idna/'));
+                    py.addImportPath(Qt.resolvedUrl('../../python/six/'));
 
                     py.importModule('main',function(){
                         py.call("main.init",[])
