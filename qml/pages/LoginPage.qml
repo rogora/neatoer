@@ -24,7 +24,7 @@ Dialog {
     }
 
     onAccepted: {
-        py.call("main.login",[email.text, pwd.text])
+        py.call("main.login",[email.text, pwd.text, cbox.currentItem.text])
         dhead.acceptText = "Wait"
     }
 
@@ -37,6 +37,16 @@ Dialog {
             // Spacer
             height: parent.height / 5
             width: 1
+        }
+
+        ComboBox {
+            id: cbox
+            width: parent.width
+            label: "Vendor"
+            menu: ContextMenu {
+                MenuItem { text: "Neato"}
+                MenuItem { text: "Vorwerk"}
+            }
         }
 
         TextArea {

@@ -17,8 +17,7 @@ import requests
 from datetime import datetime
 from dateutil import tz
 
-from pybotvac import Account
-from pybotvac import Robot
+from pybotvac import Account, Neato, Vorwerk, Robot
 
 CACHE_DIR = "/home/nemo/.cache/harbour-neatoer/"
 CACHE_FILE = CACHE_DIR + "robots.json"
@@ -26,6 +25,7 @@ CACHE_FILE = CACHE_DIR + "robots.json"
 robots = {}
 robot = None
 account = None
+vendor = None
 
 def set_device(name):
     global robots
@@ -33,7 +33,7 @@ def set_device(name):
     for r in robots["robots"]:
         if (r["name"] == name):
             try:
-                robot = Robot(r["serial"], r["secret"], r["name"])
+                robot = Robot(serial = r["serial"], secret = r["secret"], traits = "", vendor = vendor, name = r["name"])
                 update_state()
             except requests.exceptions.HTTPError as e:
                 # Whoops it wasn't a 200
@@ -58,13 +58,20 @@ def update_state():
 def logout():
     os.remove(CACHE_FILE)
 
-def login(email, password):
+def login(email, password, vendor):
+    if (vendor == "Neato"):
+        v = Neato()
+    elif (vendor == "Vorwerk"):
+        v = Vorwerk()
+
     try:
-        account = Account(email, password)
+        account = Account(email, password, v)
         if (account is None):
             # failed login
             pyotherside.send("loginrequired")
+
         r_json = {
+            "vendor": vendor,
             "token": account.access_token,
             "robots": [
             ]
@@ -91,8 +98,14 @@ def init():
     with open(CACHE_FILE, "r") as read_file:
         global account
         global robots
+        global vendor
         robots = json.load(read_file)
-        account = Account(robots["token"])
+        if (robots["vendor"] == "Neato"):
+            vendor = Neato()
+        elif (robots["vendor"] == "Vorwerk"):
+            vendor = Vorwerk()
+
+        account = Account(robots["token"], None, vendor)
         for r in robots["robots"]:
             pyotherside.send("rfound", r["name"])
 
